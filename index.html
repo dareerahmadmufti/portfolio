@@ -3,6 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark">
   <title>Dareer Ahmad Mufti — Senior Game Developer</title>
   <meta name="description" content="Portfolio of Dareer Ahmad Mufti, senior game developer.">
   <link rel="stylesheet" href="styles.css">
@@ -42,6 +43,14 @@
   <footer class="foot">
     <p>&copy; <span id="year"></span> Dareer Ahmad Mufti. The errors are all mine.</p>
   </footer>
+
+  <div id="lightbox" class="lightbox" hidden aria-modal="true" role="dialog" aria-label="Project media viewer">
+    <button type="button" class="lb-close" aria-label="Close">&#215;</button>
+    <button type="button" class="lb-nav lb-prev" aria-label="Previous">&lsaquo;</button>
+    <button type="button" class="lb-nav lb-next" aria-label="Next">&rsaquo;</button>
+    <div class="lb-stage"></div>
+    <p class="lb-cap"></p>
+  </div>
 
   <script src="projects.js"></script>
   <script src="app.js"></script>

@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="540" viewBox="0 0 960 540">
+  <rect width="960" height="540" fill="#16161c"/>
+  <rect x="620" y="80" width="180" height="40" rx="5" fill="#1e1e27" stroke="#3a3a48"/>
+  <rect x="80" y="150" width="640" height="280" fill="#1e1e27" stroke="#38384a" rx="8"/>
+  <line x1="140" y1="200" x2="380" y2="200" stroke="#2a2a36" stroke-width="3"/>
+  <line x1="140" y1="240" x2="520" y2="240" stroke="#2a2a36" stroke-width="3"/>
+  <rect x="140" y="280" width="80" height="80" rx="6" fill="#21212c" stroke="#3a3a48"/>
+  <text x="60" y="60" font-family="Menlo, monospace" font-size="22" fill="#8f8fa3">pocket-ops</text>
+  <text x="60" y="92" font-family="Menlo, monospace" font-size="15" fill="#4a4a5a">placeholder screenshot 2</text>
+</svg>

@@ -1,10 +1,13 @@
 :root {
-  --bg: #fdfdfb;
-  --ink: #1c1c1a;
-  --muted: #6b6a66;
-  --line: #e4e3df;
-  --accent: #b3491f;
-  --accent-ink: #ffffff;
+  --bg: #121216;
+  --panel: #1b1b22;
+  --panel-2: #23232d;
+  --ink: #e7e7ec;
+  --muted: #9797a3;
+  --line: #2c2c37;
+  --accent: #d08a4f;
+  --accent-ink: #14140f;
+  --scrollbar-hide: transparent;
 }
 
 * {
@@ -26,7 +29,7 @@ body {
 /* ------- layout ------- */
 
 body {
-  max-width: 720px;
+  max-width: 760px;
   margin: 0 auto;
   padding: 64px 24px 96px;
 }
@@ -58,7 +61,7 @@ body {
 .masthead .intro {
   max-width: 56ch;
   margin: 0 0 16px;
-  color: #3a3a37;
+  color: #cbccd4;
 }
 
 .masthead .links {
@@ -76,7 +79,7 @@ body {
   text-decoration: underline;
 }
 
-/* ------- projects ------- */
+/* ------- sections ------- */
 
 main {
   padding-top: 24px;
@@ -118,15 +121,15 @@ main {
   font: 12px/1.4 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
   letter-spacing: 0.02em;
   color: var(--muted);
-  background: transparent;
+  background: var(--panel);
   border: 1px solid var(--line);
   padding: 5px 10px;
   cursor: pointer;
-  transition: border-color 0.15s, color 0.15s, background-color 0.15s;
+  transition: border-color 0.15s, color 0.15s, background-color 0.15s, box-shadow 0.15s;
 }
 
 .filter-btn:hover {
-  border-color: var(--ink);
+  border-color: #6a6a78;
   color: var(--ink);
 }
 
@@ -134,23 +137,24 @@ main {
   background: var(--accent);
   border-color: var(--accent);
   color: var(--accent-ink);
+  box-shadow: 0 0 0 3px rgba(208, 138, 79, 0.18);
 }
 
-/* ------- project list ------- */
+/* ------- project cards ------- */
 
 .project-list {
   list-style: none;
   padding: 0;
   margin: 0;
+  display: grid;
+  gap: 20px;
 }
 
 .project {
-  padding: 22px 0;
-  border-top: 1px solid var(--line);
-}
-
-.project:last-child {
-  border-bottom: 1px solid var(--line);
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 18px;
 }
 
 .project.hidden {
@@ -183,18 +187,115 @@ main {
 .project .year {
   font: 13px/1.4 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
   color: var(--muted);
+  text-align: right;
 }
 
 .project .desc {
-  margin: 8px 0 12px;
+  margin: 10px 0 12px;
   max-width: 62ch;
-  color: #3a3a37;
+  color: #cbccd4;
   font-size: 15px;
 }
 
 .project .desc p {
   margin: 0;
 }
+
+/* ------- media strip ------- */
+
+.media-strip {
+  display: flex;
+  gap: 10px;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x mandatory;
+  padding: 2px 2px 10px;
+  margin: 0 0 16px;
+  scrollbar-width: none;
+  position: relative;
+}
+
+.media-strip::-webkit-scrollbar {
+  display: none;
+}
+
+.media-tile {
+  position: relative;
+  flex: 0 0 58%;
+  max-width: 58%;
+  aspect-ratio: 16 / 9;
+  border-radius: 10px;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  background: var(--panel-2);
+  scroll-snap-align: start;
+  cursor: zoom-in;
+  padding: 0;
+}
+
+.media-tile img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.media-tile:hover img {
+  opacity: 0.92;
+}
+
+.media-tile.video-tile {
+  cursor: pointer;
+}
+
+/* play overlay, store-listing style */
+.video-tile .play {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: rgba(18, 18, 22, 0.78);
+  border: 1px solid rgba(255, 255, 255, 0.45);
+  display: grid;
+  place-items: center;
+}
+
+.video-tile .play .tri {
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 9px 0 9px 15px;
+  border-color: transparent transparent transparent #fff;
+  margin-left: 3px;
+}
+
+.video-tile:hover .play {
+  background: var(--accent);
+  border-color: var(--accent);
+}
+
+.video-tile .dur {
+  position: absolute;
+  right: 8px;
+  bottom: 8px;
+  font: 11px/1.3 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  color: #fff;
+  background: rgba(10, 10, 12, 0.78);
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+/* captioned thumbnails on wide-enough screens */
+
+.media-tile figcaption,
+.media-tile h4 {
+  margin: 0;
+}
+
+/* ------- tags ------- */
 
 .tags {
   display: flex;
@@ -215,11 +316,11 @@ main {
 }
 
 .tag:hover {
-  border-color: var(--ink);
+  border-color: #6a6a78;
   color: var(--ink);
 }
 
-.project.filtered .tag.selected-in-project-list {
+.project .tag.selected-in-project-list {
   border-color: var(--accent);
   color: var(--accent);
 }
@@ -231,6 +332,111 @@ main {
   color: var(--muted);
   padding-top: 12px;
   margin: 0;
+}
+
+/* ------- lightbox ------- */
+
+.lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  background: rgba(10, 10, 13, 0.94);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 14px;
+  animation: fade-in 0.18s ease;
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.lightbox[hidden] {
+  display: none;
+}
+
+.lb-stage {
+  max-width: min(1080px, 92vw);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.lb-stage img,
+.lb-stage video {
+  display: block;
+  max-width: 100%;
+  max-height: 82vh;
+  border-radius: 10px;
+  border: 1px solid var(--line);
+  background: #000;
+}
+
+.lb-cap {
+  font: 13px/1.4 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  color: var(--muted);
+  margin: 0 40px;
+  text-align: center;
+}
+
+.lb-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 44px;
+  height: 44px;
+  border-radius: 8px;
+  border: 1px solid var(--line);
+  background: var(--panel);
+  color: var(--ink);
+  font-size: 18px;
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  transition: border-color 0.15s, color 0.15s;
+}
+
+.lb-nav:hover:not(:disabled) {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.lb-nav:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+
+.lb-prev {
+  left: 16px;
+}
+
+.lb-next {
+  right: 16px;
+}
+
+.lb-close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  border: 1px solid var(--line);
+  background: var(--panel);
+  color: var(--ink);
+  font-size: 18px;
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  transition: border-color 0.15s, color 0.15s;
+}
+
+.lb-close:hover {
+  border-color: var(--accent);
+  color: var(--accent);
 }
 
 /* ------- footer ------- */
@@ -255,4 +461,17 @@ main {
   .masthead h1 {
     font-size: 34px;
   }
+
+  .media-tile {
+    flex: 0 0 82%;
+    max-width: 82%;
+  }
+
+  .lb-nav {
+    width: 36px;
+    height: 36px;
+  }
+
+  .lb-prev { left: 8px; }
+  .lb-next { right: 8px; }
 }
