@@ -108,36 +108,59 @@ main {
   margin: 0;
 }
 
-/* ------- filters ------- */
+/* ------- filter bar ------- */
 
-.filters {
+.filter-bar {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px;
+  gap: 10px;
   margin: 0 0 28px;
 }
 
-.filter-btn {
-  font: 12px/1.4 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-  letter-spacing: 0.02em;
-  color: var(--muted);
+.filter-bar input,
+.filter-bar select {
+  font: 14px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  color: var(--ink);
   background: var(--panel);
   border: 1px solid var(--line);
-  padding: 5px 10px;
-  cursor: pointer;
-  transition: border-color 0.15s, color 0.15s, background-color 0.15s, box-shadow 0.15s;
+  border-radius: 8px;
+  padding: 8px 12px;
+  transition: border-color 0.15s;
 }
 
-.filter-btn:hover {
-  border-color: #6a6a78;
-  color: var(--ink);
+.filter-bar input {
+  flex: 1 1 220px;
+  min-width: 0;
 }
 
-.filter-btn.active {
-  background: var(--accent);
+.filter-bar input::placeholder {
+  color: var(--muted);
+}
+
+.filter-bar input:focus,
+.filter-bar select:focus {
+  outline: none;
   border-color: var(--accent);
-  color: var(--accent-ink);
-  box-shadow: 0 0 0 3px rgba(208, 138, 79, 0.18);
+}
+
+.filter-bar select {
+  appearance: none;
+  -webkit-appearance: none;
+  cursor: pointer;
+  padding-right: 34px;
+  background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='%239797a3' d='M4 6l4 4 4-4z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  background-size: 12px;
+}
+
+.filter-bar select:hover {
+  border-color: #6a6a78;
+}
+
+.filter-bar option {
+  background: var(--panel);
+  color: var(--ink);
 }
 
 /* ------- project cards ------- */
@@ -318,11 +341,6 @@ main {
 .tag:hover {
   border-color: #6a6a78;
   color: var(--ink);
-}
-
-.project .tag.selected-in-project-list {
-  border-color: var(--accent);
-  color: var(--accent);
 }
 
 /* ------- empty state ------- */

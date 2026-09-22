@@ -32,7 +32,12 @@
         <p id="result-count" class="count" aria-live="polite"></p>
       </div>
 
-      <div id="filters" class="filters" aria-label="Filter projects by tag"></div>
+      <div class="filter-bar">
+        <input type="search" id="search" placeholder="Search by name or keyword" autocomplete="off" spellcheck="false" aria-label="Search projects">
+        <select id="tag-select" aria-label="Filter by tag">
+          <option value="">All tags</option>
+        </select>
+      </div>
 
       <ul id="project-list" class="project-list"></ul>
 

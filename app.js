@@ -8,7 +8,8 @@
   }
 
   var listEl = document.getElementById("project-list");
-  var filtersEl = document.getElementById("filters");
+  var searchEl = document.getElementById("search");
+  var tagSelect = document.getElementById("tag-select");
   var countEl = document.getElementById("result-count");
   var emptyEl = document.getElementById("empty");
 
@@ -22,7 +23,7 @@
   var gallery = [];
   var galleryIndex = 0;
 
-  var active = {}; // tag -> true while selected
+  var selectedTag = "";
   var tagCounts = {};
 
   PROJECTS.forEach(function (p) {
@@ -35,23 +36,18 @@
     return tagCounts[b] - tagCounts[a] || a.localeCompare(b);
   });
 
-  // ---- filters ----
+  // ---- tag dropdown ----
 
   allTags.forEach(function (tag) {
-    var btn = document.createElement("button");
-    btn.type = "button";
-    btn.className = "filter-btn";
-    btn.dataset.tag = tag;
-    btn.textContent = tag + " (" + tagCounts[tag] + ")";
-    btn.addEventListener("click", function () {
-      if (active[tag]) {
-        delete active[tag];
-      } else {
-        active[tag] = true;
-      }
-      update();
-    });
-    filtersEl.appendChild(btn);
+    var opt = document.createElement("option");
+    opt.value = tag;
+    opt.textContent = tag + " (" + tagCounts[tag] + ")";
+    tagSelect.appendChild(opt);
+  });
+
+  tagSelect.addEventListener("change", function () {
+    selectedTag = tagSelect.value;
+    update();
   });
 
   // ---- project cards ----
@@ -110,7 +106,8 @@
 
     li.querySelectorAll(".tag").forEach(function (btn) {
       btn.addEventListener("click", function () {
-        active[btn.dataset.tag] = true;
+        selectedTag = btn.dataset.tag;
+        tagSelect.value = selectedTag;
         update();
       });
     });
@@ -192,34 +189,34 @@
 
   // ---- filtering ----
 
-  function projectHasAny(p) {
-    var keys = Object.keys(active);
-    if (!keys.length) return true;
-    return keys.some(function (t) {
-      return p.tags.indexOf(t) !== -1;
+  searchEl.addEventListener("input", update);
+
+  function projectMatches(p) {
+    if (selectedTag && p.tags.indexOf(selectedTag) === -1) return false;
+    var q = searchEl.value.trim().toLowerCase();
+    if (!q) return true;
+    var hay = [p.title, p.description, p.meta || "", p.year || ""]
+      .concat(p.tags)
+      .join(" ")
+      .toLowerCase();
+    return q.split(/\s+/).every(function (word) {
+      return hay.indexOf(word) !== -1;
     });
   }
 
   function update() {
     var shown = 0;
 
-    filtersEl.querySelectorAll(".filter-btn").forEach(function (btn) {
-      btn.classList.toggle("active", !!active[btn.dataset.tag]);
-    });
-
     PROJECTS.forEach(function (p, i) {
       var li = document.getElementById("project-" + i);
       if (!li) return;
-      var visible = projectHasAny(p);
+      var visible = projectMatches(p);
       li.classList.toggle("hidden", !visible);
-      li.classList.toggle("filtered", !!Object.keys(active).length);
-      li.querySelectorAll(".tag").forEach(function (btn) {
-        btn.classList.toggle("selected-in-project-list", !!active[btn.dataset.tag]);
-      });
       if (visible) shown++;
     });
 
-    countEl.textContent = shown === PROJECTS.length ? "" : shown + " of " + PROJECTS.length + " projects";
+    var filtering = selectedTag !== "" || searchEl.value.trim() !== "";
+    countEl.textContent = filtering ? shown + " of " + PROJECTS.length + " projects" : "";
     emptyEl.hidden = shown !== 0;
   }
 
