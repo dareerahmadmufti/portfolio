@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Dareer Ahmad Mufti — Senior Game Developer</title>
+  <meta name="description" content="Portfolio of Dareer Ahmad Mufti, senior game developer.">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <header class="masthead">
+    <h1>Dareer Ahmad Mufti</h1>
+    <p class="role">Senior Game Developer</p>
+    <p class="intro">
+      I build games for desktop, console and mobile. Roughly a decade of shipped
+      work across gameplay, tools and engine programming&nbsp;&mdash; mostly Unity and
+      Unreal, with a soft spot for cursed physics bugs.
+    </p>
+    <p class="links">
+      <a href="mailto:you@example.com">Email</a>
+      <a href="https://github.com/dareerahmadmufti">GitHub</a>
+      <a href="https://www.linkedin.com/in/dareerahmadmufti">LinkedIn</a>
+    </p>
+  </header>
+
+  <main>
+    <section id="projects" aria-labelledby="projects-title">
+      <div class="section-head">
+        <h2 id="projects-title">Selected projects</h2>
+        <p id="result-count" class="count" aria-live="polite"></p>
+      </div>
+
+      <div id="filters" class="filters" aria-label="Filter projects by tag"></div>
+
+      <ul id="project-list" class="project-list"></ul>
+
+      <p id="empty" class="empty" hidden>Nothing matches that filter.</p>
+    </section>
+  </main>
+
+  <footer class="foot">
+    <p>&copy; <span id="year"></span> Dareer Ahmad Mufti. The errors are all mine.</p>
+  </footer>
+
+  <script src="projects.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
